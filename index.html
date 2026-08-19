@@ -98,7 +98,7 @@
   #announce{position:fixed; top:0; left:0; right:0; z-index:70; background:var(--wine-deep); color:var(--gold-soft); text-align:center; font-size:0.8rem; padding:9px 16px; letter-spacing:0.02em;}
 
   /* header */
-  header.topbar{position:fixed; top:34px; left:0; right:0; z-index:60; background:rgba(35,24,21,0.55); backdrop-filter:blur(10px);}
+  header.topbar{position:fixed; top:var(--announce-h, 34px); left:0; right:0; z-index:60; background:rgba(35,24,21,0.55); backdrop-filter:blur(10px);}
   .topbar-inner{max-width:1180px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:8px 24px;}
   .brand{display:flex; align-items:center; gap:10px; flex-shrink:0;}
   .brand img{height:76px; width:auto;}
@@ -635,6 +635,15 @@
 </footer>
 
 <script>
+  // keep header positioned right below the announcement bar, whatever its real height is
+  function syncAnnounceHeight() {
+    const el = document.getElementById('announce');
+    document.documentElement.style.setProperty('--announce-h', el.offsetHeight + 'px');
+  }
+  syncAnnounceHeight();
+  window.addEventListener('resize', syncAnnounceHeight);
+  window.addEventListener('load', syncAnnounceHeight);
+
   // cart
   let cart = [];
   const cartPanel = document.getElementById('cart-panel');
